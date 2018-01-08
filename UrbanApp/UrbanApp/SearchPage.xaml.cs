@@ -13,7 +13,7 @@ namespace UrbanApp
 	public partial class SearchPage : ContentPage
 	{
         private Label welcome;
-		public SearchPage (SearchResult result)
+		public SearchPage (SearchResult result = null)
 		{
             var layout = new StackLayout();
 
@@ -22,7 +22,7 @@ namespace UrbanApp
                 Text = "HEJ",
                 FontSize = 32
             });
-			//InitializeComponent ();
+			
 		}
 	}
 }

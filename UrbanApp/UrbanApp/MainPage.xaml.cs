@@ -15,6 +15,7 @@ namespace UrbanApp
         private Entry searchEntry;
         private Label errorText;
         public string searchWord;
+        Fetcher fetcher = new Fetcher();
 
         public MainPage()
 		{
@@ -53,8 +54,8 @@ namespace UrbanApp
             if (!string.IsNullOrEmpty(searchEntry.Text))
             {
                 errorText.IsVisible = false;
-                var result = Fetcher.SearchForWord(searchEntry.Text);
-                SearchPage searchPage = new SearchPage(result);
+                var result = fetcher.SearchForWord(searchEntry.Text);
+                SearchPage searchPage = new SearchPage(await result);
                 await Navigation.PushAsync(searchPage);
             }
             else
