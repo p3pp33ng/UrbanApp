@@ -32,7 +32,7 @@ namespace UrbanApp
                 IsVisible = false
             });
 
-            if (result.result_type != "no_results")
+            if (result.result_type != "no_results" || result != null)
             {
                 errorText.IsVisible = false;
 

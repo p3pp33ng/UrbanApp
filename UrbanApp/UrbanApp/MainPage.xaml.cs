@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.Connectivity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,8 +55,15 @@ namespace UrbanApp
             {
                 errorText.IsVisible = false;
                 var result = fetcher.SearchForWord(searchEntry.Text);
-                SearchPage searchPage = new SearchPage(await result, searchEntry.Text);
-                await Navigation.PushAsync(searchPage);
+                if (CrossConnectivity.Current.IsConnected)
+                {
+                    SearchPage searchPage = new SearchPage(await result, searchEntry.Text);
+                    await Navigation.PushAsync(searchPage);
+                }
+                else
+                {
+                    DisplayAlert("Connection error", "Could not connect to the internet", "Darn it");
+                }
             }
             else
             {

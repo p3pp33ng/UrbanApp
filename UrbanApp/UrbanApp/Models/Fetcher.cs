@@ -15,11 +15,18 @@ namespace UrbanApp.Models
             SearchResult result = new SearchResult();
             //sending a http get with the searchword
             using (var client = SetUpClientWithAuth())
-            {                
-                HttpResponseMessage response = await client.GetAsync($"https://mashape-community-urban-dictionary.p.mashape.com/define?term={searchString}");
-                if (response.IsSuccessStatusCode)
-                {                    
-                    result = JsonConvert.DeserializeObject<SearchResult>(await response.Content.ReadAsStringAsync());
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync($"https://mashape-community-urban-dictionary.p.mashape.com/define?term={searchString}");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        result = JsonConvert.DeserializeObject<SearchResult>(await response.Content.ReadAsStringAsync());
+                    }
+                }
+                catch (Exception)
+                {
+                    
                 }
             }
             //Getting back a response form web API.

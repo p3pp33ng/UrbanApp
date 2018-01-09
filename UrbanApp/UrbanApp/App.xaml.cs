@@ -9,8 +9,6 @@ namespace UrbanApp
 {
 	public partial class App : Application
 	{
-        private List<string> SearchWords { get; set; } = new List<string>();
-
         public App ()
 		{
 			MainPage = new NavigationPage(new MainPage());
