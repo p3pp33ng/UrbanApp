@@ -13,22 +13,27 @@ namespace UrbanApp.Models
         public async Task<SearchResult> SearchForWord(string searchString)
         {
             SearchResult result = new SearchResult();
-            //sending a get with the searchword
-            using (var client = new HttpClient())
-            {
-                //client.BaseAddress = new Uri(Constants);
-                
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //client.DefaultRequestHeaders.Authorization add mashape key here
+            //sending a http get with the searchword
+            using (var client = SetUpClientWithAuth())
+            {                
                 HttpResponseMessage response = await client.GetAsync($"https://mashape-community-urban-dictionary.p.mashape.com/define?term={searchString}");
                 if (response.IsSuccessStatusCode)
-                {
-                    result = JsonConvert.DeserializeObject<SearchResult>(response.Content.ToString());
+                {                    
+                    result = JsonConvert.DeserializeObject<SearchResult>(await response.Content.ReadAsStringAsync());
                 }
             }
             //Getting back a response form web API.
             return result;
+        }
+
+        private HttpClient SetUpClientWithAuth()
+        {
+            HttpClient client = new HttpClient();            
+
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Add("X-Mashape-Key", "wr9b0MEpR7mshVmgmNfPaDonplcDp1NjFpJjsnJInOBypL5TxS");
+            client.DefaultRequestHeaders.Add("Accept", "text/plain");
+            return client;
         }
     }
 }
