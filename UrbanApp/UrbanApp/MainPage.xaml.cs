@@ -38,7 +38,7 @@ namespace UrbanApp
 
             layout.Children.Add(errorText = new Label
             {
-                Text = "",
+                Text = "Something is wrong with the search text.",
                 TextColor = Color.Red,
                 IsVisible = false
             });
@@ -55,6 +55,7 @@ namespace UrbanApp
             {
                 errorText.IsVisible = false;
                 var result = fetcher.SearchForWord(searchEntry.Text);
+                //I want to open up my searchpage to display the data from the API call.
                 SearchPage searchPage = new SearchPage(await result);
                 var navPage = new NavigationPage(searchPage);
                 await navPage.PushAsync(searchPage);
@@ -63,7 +64,6 @@ namespace UrbanApp
             else
             {
                 errorText.IsVisible = true;
-                errorText.Text = "Something is wrong with the search text.";
             }
         }
     }
