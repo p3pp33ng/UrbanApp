@@ -8,8 +8,8 @@ using Xamarin.Forms;
 
 namespace UrbanApp
 {
-	public partial class MainPage : ContentPage
-	{
+    public partial class MainPage : ContentPage
+    {
         private Label textLabel;
         private Button searchButton;
         private Entry searchEntry;
@@ -18,7 +18,7 @@ namespace UrbanApp
         Fetcher fetcher = new Fetcher();
 
         public MainPage()
-		{
+        {
             var layout = new StackLayout();
 
             layout.Children.Add(textLabel = new Label
@@ -46,20 +46,16 @@ namespace UrbanApp
             searchButton.Clicked += SearchClick;
 
             Content = layout;
-		}
+        }
 
         private async void SearchClick(object sender, EventArgs e)
         {
-            //Validating so it there is no empty string coming in.
             if (!string.IsNullOrEmpty(searchEntry.Text))
             {
                 errorText.IsVisible = false;
                 var result = fetcher.SearchForWord(searchEntry.Text);
-                //I want to open up my searchpage to display the data from the API call.
-                SearchPage searchPage = new SearchPage(await result);
-                var navPage = new NavigationPage(searchPage);
-                await navPage.PushAsync(searchPage);
-                //await Navigation.PushAsync(searchPage);
+                SearchPage searchPage = new SearchPage(await result, searchEntry.Text);
+                await Navigation.PushAsync(searchPage);
             }
             else
             {
