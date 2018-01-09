@@ -56,7 +56,9 @@ namespace UrbanApp
                 errorText.IsVisible = false;
                 var result = fetcher.SearchForWord(searchEntry.Text);
                 SearchPage searchPage = new SearchPage(await result);
-                await Navigation.PushAsync(searchPage);
+                var navPage = new NavigationPage(searchPage);
+                await navPage.PushAsync(searchPage);
+                //await Navigation.PushAsync(searchPage);
             }
             else
             {
