@@ -28,7 +28,7 @@ namespace UrbanApp
 
             layout.Children.Add(searchEntry = new Entry
             {
-                Text = "Enter urban word here..."
+                Placeholder = "Enter urban word here..."
             });
 
             layout.Children.Add(searchButton = new Button
